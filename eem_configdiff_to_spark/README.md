@@ -18,7 +18,7 @@ Then type the following in `EXEC` mode:
    guestshell enable
    ```
 
-Next, define the following EEM environment. Be sure *NOT* to put quotes around the variable
+Next, define the following EEM environment. Be sure **NOT** to put quotes around the variable
 values:
 
 * `spark_token` : Bearer token for your Spark user/bot
