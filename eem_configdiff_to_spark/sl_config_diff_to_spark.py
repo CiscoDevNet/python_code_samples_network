@@ -1,4 +1,4 @@
-::cisco::eem::event_register_syslog pattern "CONFIG_I"
+::cisco::eem::event_register_syslog pattern "CONFIG_I" maxrun 60
 #
 # Copyright (c) 2017  Joe Clarke <jclarke@cisco.com>
 # All rights reserved.
