@@ -1,6 +1,6 @@
 # SNMP: Print the results of an snmpwalk of the ENTITY-MIB from a device
 
-This is a Python script that uses net-snmp's Python bindings
+This is an off-box Python script that uses net-snmp's Python bindings
 to print the results of an snmpwalk of the ENTITY-MIB from a device.
 
 The script uses either SNMPv1 or SNMPv2c.
