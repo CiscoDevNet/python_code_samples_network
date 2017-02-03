@@ -34,7 +34,7 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        prog=sys.argv[0], description='Print ENTITY-MIB data via NETCONF from a device')
+        prog=sys.argv[0], description='Print the snmpwalk of the ENTITY-MIB from a device')
 
     parser.add_argument('-a', '--host', type=str, required=True,
                         help="Device IP address or Hostname")
