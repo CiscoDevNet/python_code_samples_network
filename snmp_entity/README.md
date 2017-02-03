@@ -40,3 +40,8 @@ This script has been tested with Python 2.7, and requires the following non-defa
   FreeBSD:
 
   Install `/usr/ports/net-mgmt/net-snmp` and make sure the PYTHON option is enabled.
+
+Additionally, the ENTITY-MIB needs to be loaded into net-snmp.  By default, the MIBs directory
+is `/usr/share/snmp/mibs` on Linux and `/usr/local/share/snmp/mibs` on FreeBSD.  Copy
+[ftp://ftp.cisco.com/pub/mibs/v2/ENTITY-MIB.my](ftp://ftp.cisco.com/pub/mibs/v2/ENTITY-MIB.my)
+to that location before running this script.
