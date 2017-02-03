@@ -1,12 +1,12 @@
 # NETCONF: Print the ENTITY-MIB tree from a device
 
-This is a Python script that uses ncclient to get the ENTITY-MIB
+This is an off-box Python script that uses ncclient to get the ENTITY-MIB
 tree from a device and print it as "pretty" XML.
 
 For example:
 
    ```
-   nc_entity.py -a 10.1.1.1 -u admin -p admin --port 830
+   $ nc_entity.py -a 10.1.1.1 -u admin -p admin --port 830
    <?xml version="1.0" ?>
 <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
 	<ENTITY-MIB xmlns="urn:ietf:params:xml:ns:yang:smiv2:ENTITY-MIB">
