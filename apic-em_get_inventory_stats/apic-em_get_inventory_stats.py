@@ -192,7 +192,7 @@ def get_inventory(host, port, ticket, error):
             devs += j['response']
 
         offset += limit
-        if offset + limit >= count:
+        if offset >= count:
             break
 
     return devs
