@@ -38,7 +38,7 @@ import time
 import json
 import operator
 
-DEBUG = 0
+DEBUG = False
 REST_TIMEOUT = 300
 REST_RETRY_INTERVAL = 1
 REST_RETRIES = 3
@@ -89,22 +89,25 @@ def fetch_url(url, error, p=False, timeout=REST_TIMEOUT):
     req = Request(req, url, data=data, params=params, headers=headers)
     ph = req.prepare()
 
-    if DEBUG > 0:
+    if DEBUG:
         print('DEBUG: Requested URL {}'.format(url))
         print('DEBUG:  Headers = ')
         for h in ph.headers:
-            print(' {} : {}'.format(h, ph.headers[h]))
+            print('  {} : {}'.format(h, ph.headers[h]))
+        print('DEBUG:  Parameters = ')
+        for par, val in params.items():
+            print('  {} : {}'.format(par, val))
         print('DEBUG: Body    = {}'.format(ph.body))
 
     res = s.send(ph, verify=False, timeout=timeout)
 
     if res.status_code > 299:
-        if DEBUG > 0:
+        if DEBUG:
             print('DEBUG: The server returned code: {} response: {}'.format(
                 str(res.status_code), res.text))
             print('DEBUG: Response Headers: ')
             for h in res.headers:
-                print(' {} : {}'.format(h, res.headers[h]))
+                print('  {} : {}'.format(h, res.headers[h]))
         error.set_code(res.status_code)
         j = res.json()
         error.set_msg(j['response']['message'])
@@ -213,9 +216,9 @@ if __name__ == '__main__':
                         help='APIC-EM API password', required=True)
     parser.add_argument('--port', '-P', type=int,
                         help='APIC-EM web port (default: 443)')
-    parser.add_argument('--debug', '-d', type=int,
-                        help='Set debug level (default: 0)')
-    parser.set_defaults(debug=0, port=443)
+    parser.add_argument('--debug', '-d', action='store_true',
+                        help='Enable debugging (default: False)')
+    parser.set_defaults(debug=False, port=443)
     args = parser.parse_args()
 
     if args.debug:
