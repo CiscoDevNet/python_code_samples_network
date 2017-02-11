@@ -10,9 +10,9 @@ Many Cisco switches and routers provide an on-box Python Interpreter that can be
 
 |  Code Sample  |  Description  | 
 |  --- |  ---  | 
-|  [Execute CLI via Python](/eem_configdiff_to_spark)  |  This example is about as simple as it gets. By leveraging the CLI library, we execute the “show version” command on the box. | 
-|  [TDR Test Every Interface](/Py-sho-ver-onbox)  |  This example once again leverages the CLI library, but to do something a bit more interesting.  A TDR test is run on every interface in “up” status.  | 
-|  EEM Config Changes to Spark  |  In this example, the EEM library is used to monitor for configuration changes.  When one occurs a message is sent to a Cisco Spark Room.  | 
+|  [Execute CLI via Python](/Py-sho-ver-onbox)  |  This example is about as simple as it gets. By leveraging the CLI library, we execute the “show version” command on the box. | 
+|  [TDR Test Every Interface](/tdr-test)  |  This example once again leverages the CLI library, but to do something a bit more interesting.  A TDR test is run on every interface in “up” status.  | 
+|  [EEM Config Changes to Spark](/eem_configdiff_to_spark)  |  In this example, the EEM library is used to monitor for configuration changes.  When one occurs a message is sent to a Cisco Spark Room.  | 
 
 
 ## Off-Box Examples 
@@ -21,9 +21,12 @@ Here are few Python scripts that can interact with network elements using one of
 
 |  Code Sample  |  Description  | 
 |  --- |  ---  | 
-|  MIB Walk with Python  |  In this example, we perform a MIB walk against a device leveraging the “netsnmp” library for Python.  | 
-|  NETCONF Connection with Python  |  This example shows the basics of connecting to a device with NETCONF using the  “ncclient” library for Python.  | 
-|  Configure Interface IP Address with RESTCONF  |  In this example the newly ratified RESTCONF standard is used to configure the IP Address on an interface.  | 
-|  Get Inventory from APIC-EM  |  APIC-EM maintains an inventory database of the entire network.  In this example Python is used to retrieve that information using the REST API.  |  
-|  Get Host List from APIC-EM  |  APIC-EM maintains a list of all clients connected to the network devices discovered by APIC-EM.  This example queries the APIC-EM for the list, and display’s it in a simple table.  | 
-|  Retrieve Tenants from ACI APIC  |  This example leverages the ACI Toolkit to connect to an APIC controller and retrieve the list of Tenants configured.  |  
+|  [MIB Walk with Python](/snmp_entity)  |  In this example, we perform a MIB walk against a device leveraging the “netsnmp” library for Python.  | 
+|  [NETCONF Connection with Python](/netconf_entity)  |  This example shows the basics of connecting to a device with NETCONF using the  “ncclient” library for Python.  | 
+|  [Configure Interface IP Address with RESTCONF](/restconf_update_ipaddress)  |  In this example the newly ratified RESTCONF standard is used to configure the IP Address on an interface.  | 
+|  [Get Inventory from APIC-EM](/apic-em_get_inventory_stats)  |  APIC-EM maintains an inventory database of the entire network.  In this example Python is used to retrieve that information using the REST API.  |  
+|  [Get Host List from APIC-EM](/apic-em_get_hosts)  |  APIC-EM maintains a list of all clients connected to the network devices discovered by APIC-EM.  This example queries the APIC-EM for the list, and display’s it in a simple table.  | 
+|  [Retrieve Tenants from ACI APIC](/acitoolkit_show_tenants)  |  This example leverages the ACI Toolkit to connect to an APIC controller and retrieve the list of Tenants configured.  |  
+|  [Basic NETCONF Get](/NC-get-config)  |  A basic ncclient example to `<get>` NETCONF Data  | 
+|  [Basic NETCONF Edit](/NC-edit-config)  |  A basic ncclient example to `<edit-config>` NETCONF Data  |  
+|  [NETCONF XPATH Example](/NC-get-config-xpath)  |  Use the XPATH feature when making a NETCONF Requests  |  
