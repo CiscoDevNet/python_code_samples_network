@@ -30,3 +30,5 @@ Here are few Python scripts that can interact with network elements using one of
 |  [Basic NETCONF Get](/NC-get-config)  |  A basic ncclient example to `<get>` NETCONF Data  | 
 |  [Basic NETCONF Edit](/NC-edit-config)  |  A basic ncclient example to `<edit-config>` NETCONF Data  |  
 |  [NETCONF XPATH Example](/NC-get-config-xpath)  |  Use the XPATH feature when making a NETCONF Requests  |  
+|  [Python with Eventing Example](/EEM-interface-move-routes)  |  Use the EEM and Python together to script based on local events. |  
+
