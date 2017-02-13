@@ -38,5 +38,9 @@ import time
 # some of the execution.
 
 cli.configure('no ip route 10.10.1.2 255.255.255.255 10.90.1.1');
+# CLI route to negate when original event occurs. Idea being, this is the next hop
+# on the other end of the interface that went down.
 time.sleep(2)
+# Sleep, just because. We are doing CLI after all.
 cli.configure('ip route 10.10.1.2 255.255.255.255 10.90.1.65');
+# CLI route to add when the original event occurs. Next hop of a backup interface.
