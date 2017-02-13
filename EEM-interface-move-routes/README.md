@@ -3,6 +3,7 @@
 This is an example Python script utilizing EEM integration. 
 
 The example EEM is below:
+
 '''
 event manager applet INTERFACE-DOWN
  event syslog pattern "LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to down"
