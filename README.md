@@ -13,6 +13,8 @@ Many Cisco switches and routers provide an on-box Python Interpreter that can be
 |  [Execute CLI via Python](/Py-sho-ver-onbox)  |  This example is about as simple as it gets. By leveraging the CLI library, we execute the “show version” command on the box. | 
 |  [TDR Test Every Interface](/tdr-test)  |  This example once again leverages the CLI library, but to do something a bit more interesting.  A TDR test is run on every interface in “up” status.  | 
 |  [EEM Config Changes to Spark](/eem_configdiff_to_spark)  |  In this example, the EEM library is used to monitor for configuration changes.  When one occurs a message is sent to a Cisco Spark Room.  | 
+|  [Python with Eventing Example](/EEM-interface-move-routes)  |  Use the EEM and Python together to script based on local events. |  
+
 
 
 ## Off-Box Examples 
@@ -30,5 +32,4 @@ Here are few Python scripts that can interact with network elements using one of
 |  [Basic NETCONF Get](/NC-get-config)  |  A basic ncclient example to `<get>` NETCONF Data  | 
 |  [Basic NETCONF Edit](/NC-edit-config)  |  A basic ncclient example to `<edit-config>` NETCONF Data  |  
 |  [NETCONF XPATH Example](/NC-get-config-xpath)  |  Use the XPATH feature when making a NETCONF Requests  |  
-|  [Python with Eventing Example](/EEM-interface-move-routes)  |  Use the EEM and Python together to script based on local events. |  
 
