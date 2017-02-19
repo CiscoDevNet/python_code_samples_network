@@ -1,4 +1,4 @@
-# NETCONF get-config
+# NETCONF get-config with XPATH
 
 This is an example Python script utilizes get-config. It also take advantage of XPATH filtering for NETCONF available in IOS-XE.
 
