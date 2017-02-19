@@ -1,4 +1,4 @@
-# NETCONF get-config
+# Python sho-ver
 
 This is an example Python script that literally just does "show version" on a network element.
 
