@@ -2,7 +2,7 @@
 
 This example script sends a notification message to a Cisco Spark user of a Configuration Change.  It was created to be used along with an EEM Applet that monitors for configuration changes, and then executes the script leveraging Python withing Guest Shell.  
 
-This example was tested using IOS-XE 16.5.1b on an ISR 4K router, and on a Nexus 9000 7.0(3)I5(2) but should work on other platforms supporting Guest Shell.  
+This example was tested using IOS-XE 16.5.1b on an ISR 4K router, but should work on other platforms supporting Guest Shell.  
 
 This example script uses the CiscoSparkApi Python library to send the Spark Message.  
 
