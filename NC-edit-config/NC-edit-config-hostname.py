@@ -34,7 +34,7 @@ import xml.dom.minidom
  
 data = '''
   <config>
-    <native xmlns="http://cisco.com/ns/yang/ned/ios">
+    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
       <hostname>NC-WAS-HERE</hostname>
     </native>
   </config>
