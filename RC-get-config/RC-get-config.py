@@ -28,7 +28,6 @@
 # prints it out in a "pretty" XML tree.
 
 from argparse import ArgumentParser
-from ncclient import manager
 import requests
 
 if __name__ == '__main__':
@@ -42,7 +41,7 @@ if __name__ == '__main__':
                         help="User credentials for the request")
     parser.add_argument('-passwd', '--password', type=str, default='cisco',
                         help="It's the password")
-    parser.add_argument('-port', '--port', type=int, default=830,
+    parser.add_argument('-port', '--port', type=int, default=443,
                         help="Specify this if you want a non-default port")
 
     args = parser.parse_args()
@@ -52,12 +51,12 @@ if __name__ == '__main__':
     host = args.host
     port = str(args.port)
 
-    url = "http://" + host + ":" + port + "/restconf/api/running/"
+    url = "https://" + host + ":" + port + "/restconf/api/running/"
 
     headers = {
        "Content-Type": "application/vnd.yang.datastore+json",
        "Accept": "application/vnd.yang.datastore+json",
        }
-    response = requests.request("GET", url, headers=headers, auth=(username,password))
+    response = requests.request("GET", url, headers=headers, auth=(username,password), verify=False)
 
     print(response.text)
