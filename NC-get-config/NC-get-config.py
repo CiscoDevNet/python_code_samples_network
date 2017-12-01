@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 #
-# This script retrieves entire configuration from a network element via NETCONF 
+# This script retrieves entire configuration from a network element via NETCONF
 # prints it out in a "pretty" XML tree.
 
 import sys
@@ -44,14 +44,20 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=830,
                         help="Specify this if you want a non-default port")
     args = parser.parse_args()
-    
+
     m =  manager.connect(host=args.host,
                          port=args.port,
                          username=args.username,
                          password=args.password,
                          device_params={'name':"csr"})
+
+    hostname_filter = '''
+                      <filter>
+                          <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+                          </native>
+                      </filter>
+                      '''
+
        # Pretty print the XML reply
-    xmlDom = xml.dom.minidom.parseString( str( m.get_config(source='running')))
-    print xmlDom.toprettyxml( indent = "  " )
-
-
+    xmlDom = xml.dom.minidom.parseString( str( m.get_config('running', hostname_filter)))
+    print(xmlDom.toprettyxml( indent = "  " ))
