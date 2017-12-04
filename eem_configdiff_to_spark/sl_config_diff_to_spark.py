@@ -28,11 +28,13 @@
 #
 # spark_token : Bearer token for your Spark user/bot
 # spark_room  : Spark room name to which messages will be sent
+# device_name : Device name from which the messages will be sent
 #
 # E.g.:
 #
 # event manager environment spark_token Bearer 1234abd...
 # event manager environment spark_room Network Operators
+# event manager environment device_name C3850
 #
 
 import eem
@@ -57,6 +59,10 @@ if 'spark_token' not in arr_envinfo:
 if 'spark_room' not in arr_envinfo:
     eem.action_syslog(
         'Environment variable "spark_room" must be set', priority='3')
+    sys.exit(1)
+if 'device_name' not in arr_envinfo:
+    eem.action_syslog(
+        'Environment variable "device_name" must be set', priority='3')
     sys.exit(1)
 
 # Get a CLI handle
@@ -98,7 +104,9 @@ if re.search('No changes were found', res):
     # No differences found
     sys.exit(0)
 
-msg = 'Configuration differences between the running config and last backup:\n'
+device_name = arr_envinfo['device_name']
+msg = '### Alert: Config changed on ' + device_name + '\n'
+msg += 'Configuration differences between the running config and last backup:\n'
 msg += '```{}```'.format('\n'.join(diff_lines[:-1]))
 
 headers = {
