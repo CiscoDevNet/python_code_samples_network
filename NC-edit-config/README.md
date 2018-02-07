@@ -9,7 +9,7 @@ For fun, you'll realize the script reconfigures the hostname of your network ele
 # requirements
 -- ncclient
 
--- IOS-XE running >/= 16.3.1 also enabled for NETCONF
+-- IOS-XE running >/= 16.5(1) also enabled for NETCONF
 
 # running
 -- Can run on-box or off-box.

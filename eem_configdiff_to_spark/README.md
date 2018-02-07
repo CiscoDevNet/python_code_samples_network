@@ -18,6 +18,33 @@ Then type the following in `EXEC` mode:
    guestshell enable
    ```
 
+Guestshell may not include the needed `requests` module.  Enter guestshell with the following command:
+
+   ```
+   guestshell
+   ```
+
+From the guestshell prompt, run the following command:
+
+   ```
+   sudo pip install requests
+   ```
+
+If this returns an error about not being able to establish a connection to download the module, you
+may need to update your DNS settings within guestshell.  If you know your DNS server, you can use
+that address.  If you don't, just use 8.8.8.8.  Run the command:
+
+   ```
+   sudo echo 'nameserver DNSSERVER' > /etc/resolv.conf
+   ```
+
+Where DNSSERVER is the IP address of your DNS server (or 8.8.8.8).  After doing that, repeat
+the `pip` command, and it should install successfully.  If `pip` tells you `requests` is already
+installed, then your guestshell environment is good.  You can type `exit` to return to IOS-XE.
+
+**NOTE** The guestshell environment will persist across reboots.  It will not revert to the default
+state unless you do a `guestshell destory` followed by another `guestshell enable`.
+
 Next, define the following EEM environment. Be sure **NOT** to put quotes around the variable
 values:
 

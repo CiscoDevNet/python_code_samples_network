@@ -24,6 +24,7 @@
 import json
 import requests
 import sys
+from argparse import ArgumentParser
 from collections import OrderedDict
 import urllib3
 
@@ -58,7 +59,7 @@ def get_configured_interfaces():
                             auth=(USER, PASS),
                             headers=headers,
                             verify=False
-                           )
+                            )
 
     # return the json as text
     return response.json()["ietf-interfaces:interfaces"]["interface"]
@@ -78,9 +79,9 @@ def configure_ip_address(interface, ip):
                             ('ietf-ip:ipv4',
                                 OrderedDict([
                                   ('address', [OrderedDict([
-                                                ('ip',ip["address"]),
-                                                ('netmask',ip["mask"])
-                                              ])]
+                                      ('ip', ip["address"]),
+                                      ('netmask', ip["mask"])
+                                  ])]
                                   )
                                 ])
                             ),
@@ -93,7 +94,7 @@ def configure_ip_address(interface, ip):
                             headers=headers,
                             verify=False,
                             json=data
-                           )
+                            )
     print(response.text)
 
 
@@ -106,7 +107,7 @@ def print_interface_details(interface):
                             auth=(USER, PASS),
                             headers=headers,
                             verify=False
-                           )
+                            )
 
     intf = response.json()["ietf-interfaces:interface"]
     # return the json as text
@@ -129,9 +130,9 @@ def interface_selection(interfaces):
 
     # Validate interface input
     # Must be an interface on the device AND NOT be the Management Interface
-    while sel == MANAGEMENT_INTERFACE or not sel in [intf["name"] for intf in interfaces]:
+    while sel == args.interface or not sel in [intf["name"] for intf in interfaces]:
         print("INVALID:  Select an available interface.")
-        print("          " + MANAGEMENT_INTERFACE + " is used for management.")
+        print("          " + args.interface + " is used for management.")
         print("          Choose another Interface")
         sel = input("Which Interface do you want to configure? ")
 
@@ -142,12 +143,14 @@ def interface_selection(interfaces):
 def get_ip_info():
     # Ask User for IP and Mask
     ip = {}
-    ip["address"] = input("What IP address do you want to set? ")
-    ip["mask"] = input("What Subnet Mask do you want to set? ")
+    ip["address"] = do_input("What IP address do you want to set? ")
+    ip["mask"] = do_input("What Subnet Mask do you want to set? ")
     return(ip)
 
 
 def main():
+    global do_input
+
     """
     Simple main method calling our function.
     """
@@ -166,7 +169,7 @@ def main():
 
     # Print Starting Interface Details
     print("Starting Interface Configuration")
-    print_interface_details(selected_interface)
+    print_interface_details(args, selected_interface)
 
     # As User for IP Address to set
     ip = get_ip_info()
