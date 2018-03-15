@@ -33,4 +33,5 @@ Here are few Python scripts that can interact with network elements using one of
 |  [Basic NETCONF Get](/NC-get-config)  |  A basic ncclient example to `<get>` NETCONF Data  | 
 |  [Basic NETCONF Edit](/NC-edit-config)  |  A basic ncclient example to `<edit-config>` NETCONF Data  |  
 |  [NETCONF XPATH Example](/NC-get-config-xpath)  |  Use the XPATH feature when making a NETCONF Requests  |  
+|  [Model Based AAA](/model-based-aaa)  |  These example scripts are for Model Based AAA to get, edit and delete the rule-lists for privilege level users and Groups by using ietf-netconf-acm.yang data model  | 
 
