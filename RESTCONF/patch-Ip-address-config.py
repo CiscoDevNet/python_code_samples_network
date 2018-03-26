@@ -52,7 +52,7 @@ def main():
     # RESTCONF media types for REST API headers
     headers = {'Content-Type': 'application/yang-data+json',
                'Accept': 'application/yang-data+json'}
-    # this statement performs a GET on the specified url
+    # this statement performs a PATCH on the specified url
     response = requests.request("PATCH",url, auth=(USER, PASS),
                             data=payload, headers=headers, verify=False)
                             
