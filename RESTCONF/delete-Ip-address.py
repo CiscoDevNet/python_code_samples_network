@@ -51,7 +51,7 @@ def main():
     # RESTCONF media types for REST API headers
     headers = {'Content-Type': 'application/yang-data+json',
                'Accept': 'application/yang-data+json'}
-    # this statement performs a GET on the specified url
+    # this statement performs a DELETE on the specified url
     response = requests.request("DELETE",url, auth=(USER, PASS),
                              headers=headers, verify=False)                        
     # print the json that is returned
