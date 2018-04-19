@@ -1,0 +1,5 @@
+Catalyst_Switch#sh run | sec event manager
+event manager applet config_change
+ event syslog pattern "GigabitEthernet1/0/5, changed state to down"
+ action 0 cli command "enable"
+ action 1 cli command "guestshell run python port_flap_email_alert.py"
