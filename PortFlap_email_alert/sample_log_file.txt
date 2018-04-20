@@ -1,0 +1,51 @@
+Catalyst_Switch#sh log
+Syslog logging: enabled (0 messages dropped, 11 messages rate-limited, 0 flushes, 0 overruns, xml disabled, filtering disabled)
+
+No Active Message Discriminator.
+
+
+
+No Inactive Message Discriminator.
+
+
+    Console logging: level debugging, 169945 messages logged, xml disabled,
+                     filtering disabled
+    Monitor logging: level debugging, 39 messages logged, xml disabled,
+                     filtering disabled
+    Buffer logging:  level debugging, 169955 messages logged, xml disabled,
+                    filtering disabled
+    Exception Logging: size (4096 bytes)
+    Count and timestamp logging messages: disabled
+    File logging: disabled
+    Persistent logging: disabled
+
+No active filter modules.
+
+    Trap logging: level informational, 169933 message lines logged
+        Logging Source-Interface:       VRF Name:
+
+Log Buffer (4096 bytes):
+
+*Apr 19 2018 18:00:06: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:00:07: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:00:14: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:00:15: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:00:19: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:00:20: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:00:29: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:00:30: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:00:53: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:00:54: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:01:01: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:01:02: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:01:07: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:01:08: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:01:27: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:01:29: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:01:50: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:01:51: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to up
+*Apr 19 2018 18:02:07: %UTIL-6-RANDOM: A pseudo-random number was generated twice in succession
+*Apr 19 2018 18:02:08: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:02:09: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/5, changed state to down
+*Apr 19 2018 18:02:16: %LINK-5-CHANGED: Interface GigabitEthernet1/0/5, changed state to administratively down         <<<<<<<<<< Flapped 5 times in last 5 mins EEM script ran and did admin shutdown on the gi 1/0/5 interface.
+Catalyst_Switch# 

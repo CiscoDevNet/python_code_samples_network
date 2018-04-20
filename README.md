@@ -15,7 +15,7 @@ Many Cisco switches and routers provide an on-box Python Interpreter that can be
 |  [EEM Config Changes to Spark](/eem_configdiff_to_spark)  |  In this example, the EEM library is used to monitor for configuration changes.  When one occurs a message is sent to a Cisco Spark Room.  | 
 |  [Python with Eventing Example](/EEM-interface-move-routes)  |  Use the EEM and Python together to script based on local events. |
 |  [EEM + Python + Spark ChatOps](/spark_checkin)  |  Use the EEM to monitor for config changes and send a Spark Message |  
-
+|  [EEM + Python + Email alert](/PortFlap_email_alert)  |  This example leverages the CLI library and using the EEM feature to monitor for interface flapping and send an email alert |
 
 
 ## Off-Box Examples 
