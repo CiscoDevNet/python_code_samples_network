@@ -10,9 +10,9 @@ If an interface has flapped 5 times in last 5 minutes this script will shutdown 
 
 * This script requires the IOS-XE guestshell feature. To enable guestshell, configure
 
-       ```
-       iox
-       ```
+    ```
+   iox
+    ```       
 
 * Then type the following in EXEC mode:
 
