@@ -130,9 +130,9 @@ def interface_selection(interfaces):
 
     # Validate interface input
     # Must be an interface on the device AND NOT be the Management Interface
-    while sel == args.interface or not sel in [intf["name"] for intf in interfaces]:
+    while sel == MANAGEMENT_INTERFACE or not sel in [intf["name"] for intf in interfaces]:
         print("INVALID:  Select an available interface.")
-        print("          " + args.interface + " is used for management.")
+        print("          " + MANAGEMENT_INTERFACE + " is used for management.")
         print("          Choose another Interface")
         sel = input("Which Interface do you want to configure? ")
 
@@ -143,8 +143,8 @@ def interface_selection(interfaces):
 def get_ip_info():
     # Ask User for IP and Mask
     ip = {}
-    ip["address"] = do_input("What IP address do you want to set? ")
-    ip["mask"] = do_input("What Subnet Mask do you want to set? ")
+    ip["address"] = input("What IP address do you want to set? ")
+    ip["mask"] = input("What Subnet Mask do you want to set? ")
     return(ip)
 
 
@@ -169,7 +169,7 @@ def main():
 
     # Print Starting Interface Details
     print("Starting Interface Configuration")
-    print_interface_details(args, selected_interface)
+    print_interface_details(selected_interface)
 
     # As User for IP Address to set
     ip = get_ip_info()
