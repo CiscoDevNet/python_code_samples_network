@@ -27,3 +27,7 @@ For example:
 This script has been tested with Python 2.7, and requires the following non-default module(s):
 
 * ncclient (pip install ncclient)
+
+This script also requires SNMP to be enabled on the target device.  Use the configuration command
+`netconf-yang cisco-ia snmp-community-string COMMUNITY` to set the NETCONF community string to
+be the same as the read-only string you use on your device.  Note: SNMPv3 is not supported.
