@@ -26,21 +26,28 @@ Python
 * Clone the Python Examples and change into the directory.  
 
     ```bash
-    git clone //github.com/CiscoDevNet/python_code_samples_network
+    git clone https://github.com/CiscoDevNet/python_code_samples_network.git
+    cd python_code_samples_network
     cd netmiko-interface-example
     ```
 
 * Create and activate a virtualenv
 
     ```bash
-    virtualenv venv --python=python3
+    Windows - recommendation to use git-bash terminal
+    py -3 -m venv venv
+    source venv/Scripts/activate
+
+    MacOS or Linux
+    python3.6 -m venv venv
     source venv/bin/activate
+
     ```
 
 * Install the requirements
 
     ```bash
-    pip install -r requirements.text
+    pip install -r requirements.txt
     ```
 
 * Run the scripts
