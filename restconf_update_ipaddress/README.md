@@ -31,7 +31,7 @@ Python
 * Clone the Python Examples and change into the directory.  
 
     ```bash 
-    git clone //github.com/CiscoDevNet/python_code_samples_network
+    git clone https://github.com/CiscoDevNet/python_code_samples_network
     cd restconf_update_ipaddress
     ```
 

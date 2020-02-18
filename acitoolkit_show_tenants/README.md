@@ -26,7 +26,7 @@ To execute this script against a different device, update the variables that lis
 * Clone the Python Examples and change into the directory.  
 
     ```bash 
-    git clone //github.com/CiscoDevNet/python_code_samples_network
+    git clone https://github.com/CiscoDevNet/python_code_samples_network
     cd acitoolkit_show_tenants
     ```
     
