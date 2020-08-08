@@ -53,4 +53,4 @@ nxos1 = {
              "device_type": "cisco_nxos"
           }
 
-# Sample GitHub Editor Comment.  
+# Sample GitHub Editor Comment.
