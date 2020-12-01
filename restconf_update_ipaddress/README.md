@@ -16,7 +16,7 @@ This script has been tested with Python 3.5, however may work with other version
 
 This script targets the RESTCONF DevNet Sandbox that leverages a CSR1000v as a target.  
 
-Find details on the Sandbox [here](https://developer.cisco.com/site/devnet/sandbox/available-labs/networking/).
+Find details on the Sandbox [here](https://developer.cisco.com/docs/sandbox/#!networking).
 
 To execute this script against a different device, update the variables that list the connectivity, management interface, and url_base for RESTCONF.  
     
@@ -31,7 +31,7 @@ Python
 * Clone the Python Examples and change into the directory.  
 
     ```bash 
-    git clone //github.com/CiscoDevNet/python_code_samples_network
+    git clone https://github.com/CiscoDevNet/python_code_samples_network
     cd restconf_update_ipaddress
     ```
 

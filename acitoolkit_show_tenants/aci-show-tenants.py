@@ -4,7 +4,7 @@ Simple application that logs on to the APIC and displays all
 of the Tenants.  
 
 Leverages the DevNet Sandbox - APIC Simulator Always On 
-    Information at https://developer.cisco.com/site/devnet/sandbox/available-labs/data-center/index.gsp 
+    Information at https://developer.cisco.com/docs/sandbox/#!data-center
     
 Code sample based off the ACI-Toolkit Code sample
 

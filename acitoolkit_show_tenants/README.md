@@ -12,7 +12,7 @@ To run this script, you'll need to have installed the ACI Toolkit in your workin
 
 This script targets the Always On ACI Simulator DevNet Sandbox. 
 
-Find details on the Sandbox [here](https://developer.cisco.com/site/devnet/sandbox/available-labs/data-center/index.gsp).
+Find details on the Sandbox [here](https://developer.cisco.com/docs/sandbox/#!data-center).
 
 To execute this script against a different device, update the variables that list the URL, User and Password for the APIC.  
 
@@ -26,7 +26,7 @@ To execute this script against a different device, update the variables that lis
 * Clone the Python Examples and change into the directory.  
 
     ```bash 
-    git clone //github.com/CiscoDevNet/python_code_samples_network
+    git clone https://github.com/CiscoDevNet/python_code_samples_network
     cd acitoolkit_show_tenants
     ```
     
