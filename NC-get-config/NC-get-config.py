@@ -51,13 +51,6 @@ if __name__ == '__main__':
                          password=args.password,
                          device_params={'name':"csr"})
 
-    hostname_filter = '''
-                      <filter>
-                          <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-                          </native>
-                      </filter>
-                      '''
-
        # Pretty print the XML reply
-    xmlDom = xml.dom.minidom.parseString( str( m.get_config('running', hostname_filter)))
+    xmlDom = xml.dom.minidom.parseString( str( m.get_config('running', filter=('xpath', '/native'))))
     print(xmlDom.toprettyxml( indent = "  " ))
