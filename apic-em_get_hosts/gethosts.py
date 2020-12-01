@@ -4,7 +4,7 @@ Simple application that logs on to the APIC-EM and displays all
 of the clients connected.  
 
 Leverages the DevNet Sandbox - APIC-EM Always On 
-    Information at https://developer.cisco.com/site/devnet/sandbox/available-labs/networking/
+    Information at https://developer.cisco.com/docs/sandbox/#!networking
     
 """
 

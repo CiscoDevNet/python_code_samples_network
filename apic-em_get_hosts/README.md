@@ -8,7 +8,7 @@ This script has been tested with Python 3.5, however may work with other version
 
 This script targets the Always On APIC-EM DevNet Sandbox. 
 
-Find details on the Sandbox [here](https://developer.cisco.com/site/devnet/sandbox/available-labs/networking/).
+Find details on the Sandbox [here](https://developer.cisco.com/docs/sandbox/#!networking).
 
 To execute this script against a different device, update the variables that list the APIC-EM IP, User and Password.  
     
