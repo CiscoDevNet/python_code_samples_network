@@ -58,7 +58,7 @@ if __name__ == '__main__':
                          device_params={'name':"csr"})
 
     hostname_filter = '''
-                      <filter>
+                      <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                           <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
                       </filter>
                       '''

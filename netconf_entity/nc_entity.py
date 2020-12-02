@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     with manager.connect_ssh(host=args.host, port=args.port, username=args.username, hostkey_verify=False, password=args.password) as m:
         entity_filter = '''
-<filter>
+<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <ENTITY-MIB xmlns="urn:ietf:params:xml:ns:yang:smiv2:ENTITY-MIB"/>
 </filter>
         '''
