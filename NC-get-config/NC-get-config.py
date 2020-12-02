@@ -52,7 +52,7 @@ if __name__ == '__main__':
                          device_params={'name':"csr"})
 
     hostname_filter = '''
-                      <filter>
+                      <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
                           <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
                           </native>
                       </filter>
