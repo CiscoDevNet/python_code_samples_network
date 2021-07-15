@@ -43,7 +43,7 @@ data = '''
 if __name__ == '__main__':
     parser = ArgumentParser(description='Select options.')
     # Input parameters
-    parser.add_argument('--host', type=str, required=True,
+    parser.add_argument('-h', '--host', type=str, required=True,
                         help="The device IP or DN")
     parser.add_argument('-u', '--username', type=str, default='cisco',
                         help="Go on, guess!")
