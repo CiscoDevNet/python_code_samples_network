@@ -30,4 +30,10 @@
 #!/usr/bin/python
 
 import cli
-print cli.execute('show version')
+import sys
+
+try:
+  print(cli.execute('show version'))
+except Exception as err:
+  sys.stderr.write("CLI error: {0}\n".format(err))
+  sys.exit(1)
