@@ -34,7 +34,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # These variables target the RESTCONF Always-On Sandbox hosted by Cisco DevNet
 HOST = 'ios-xe-mgmt.cisco.com'
-PORT = '9443'
+PORT = '443'
 USER = 'root'
 PASS = 'D_Vay!_10&'
 
