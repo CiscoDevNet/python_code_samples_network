@@ -37,7 +37,7 @@ Python
 * Install the requirements 
 
     ```bash
-    pip install -r requirements.text
+    pip install -r requirements.txt
     ```
 
 * Run the script
