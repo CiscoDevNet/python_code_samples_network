@@ -11,8 +11,9 @@
     This script has been tested with Python 3.5, however may work with other versions.
 
     This script targets the RESTCONF DevNet Sandbox that leverages a CSR1000v as
-    a target.  To execute this script against a different device, update the variables
-    that list the connectivity, management interface, and url_base for RESTCONF.
+    a target.  To execute this script against a different device, update the
+    variables and command-line arguments that list the connectivity, management
+    interface, and url_base for RESTCONF.
 
     Requirements:
       Python
@@ -26,24 +27,15 @@ import requests
 import sys
 from argparse import ArgumentParser
 from collections import OrderedDict
+from getpass import getpass
 import urllib3
 
 # Disable SSL Warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-
-# These variables target the RESTCONF Always-On Sandbox hosted by Cisco DevNet
-HOST = 'ios-xe-mgmt.cisco.com'
-PORT = '443'
-USER = 'root'
-PASS = 'D_Vay!_10&'
-
 # Identifies the interface on the device used for management access
 # Used to ensure the script isn't used to update the IP leveraged to manage device
 MANAGEMENT_INTERFACE = "GigabitEthernet1"
-
-# Create the base URL for RESTCONF calls
-url_base = "https://{h}:{p}/restconf".format(h=HOST, p=PORT)
 
 # Identify yang+json as the data formats
 headers = {'Content-Type': 'application/yang-data+json',
@@ -51,24 +43,30 @@ headers = {'Content-Type': 'application/yang-data+json',
 
 
 # Function to retrieve the list of interfaces on a device
-def get_configured_interfaces():
-    url = url_base + "/data/ietf-interfaces:interfaces"
-
+def get_configured_interfaces(url_base, username, password):
     # this statement performs a GET on the specified url
-    response = requests.get(url,
-                            auth=(USER, PASS),
-                            headers=headers,
-                            verify=False
-                            )
+    try:
+        response = requests.get(url_base,
+                                auth=(username, password),
+                                headers=headers,
+                                verify=False
+                                )
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+    if response.status_code >= 300:
+       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
+       sys.exit(1)
 
     # return the json as text
     return response.json()["ietf-interfaces:interfaces"]["interface"]
 
 
 # Used to configure the IP address on an interface
-def configure_ip_address(interface, ip):
+def configure_ip_address(url_base, interface, ip, username, password):
     # RESTCONF URL for specific interface
-    url = url_base + "/data/ietf-interfaces:interfaces/interface={i}".format(i=interface)
+    url = url_base + "/interface={i}".format(i=interface)
 
     # Create the data payload to reconfigure IP address
     # Need to use OrderedDicts to maintain the order of elements
@@ -89,32 +87,50 @@ def configure_ip_address(interface, ip):
                         )])
 
     # Use PUT request to update data
-    response = requests.put(url,
-                            auth=(USER, PASS),
-                            headers=headers,
-                            verify=False,
-                            json=data
-                            )
+    try:
+        response = requests.put(url,
+                                auth=(username, password),
+                                headers=headers,
+                                verify=False,
+                                json=data
+                                )
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+    if response.status_code >= 300:
+       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
+       sys.exit(1)
+
     print(response.text)
 
 
 # Retrieve and print the current configuration of an interface
-def print_interface_details(interface):
-    url = url_base + "/data/ietf-interfaces:interfaces/interface={i}".format(i=interface)
+def print_interface_details(url_base, interface, username, password):
+    url = url_base + "/interface={i}".format(i=interface)
 
     # this statement performs a GET on the specified url
-    response = requests.get(url,
-                            auth=(USER, PASS),
-                            headers=headers,
-                            verify=False
-                            )
+    try:
+        response = requests.get(url,
+                                auth=(username, password),
+                                headers=headers,
+                                verify=False
+                                )
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+    if response.status_code >= 300:
+       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
+       sys.exit(1)
+
 
     intf = response.json()["ietf-interfaces:interface"]
     # return the json as text
-    print("Name: ", intf["name"])
+    print("Name: ", intf[0]["name"])
     try:
-        print("IP Address: ", intf["ietf-ip:ipv4"]["address"][0]["ip"], "/",
-                              intf["ietf-ip:ipv4"]["address"][0]["netmask"])
+        print("IP Address: ", intf[0]["ietf-ip:ipv4"]["address"][0]["ip"], "/",
+                              intf[0]["ietf-ip:ipv4"]["address"][0]["netmask"])
     except KeyError:
         print("IP Address: UNCONFIGURED")
     print()
@@ -149,13 +165,29 @@ def get_ip_info():
 
 
 def main():
-    global do_input
-
     """
     Simple main method calling our function.
     """
+
+    parser = ArgumentParser(
+        prog=sys.argv[0], description='RESTCONF interface management tool')
+    parser.add_argument('--hostname', '-a', type=str,
+                        help='sandbox hostname or IP address',
+                        default='ios-xe-mgmt.cisco.com')
+    parser.add_argument('--username', '-u', type=str,
+                        help='sandbox username', default='developer')
+    parser.add_argument('--port', '-P', type=int,
+                        help='sandbox web port', default=443)
+    args = parser.parse_args()
+
+    password = getpass()
+
+    # Create the base URL for RESTCONF calls
+
+    url_base = "https://{h}:{p}/restconf/data/ietf-interfaces:interfaces".format(h=args.hostname, p=args.port)
+
     # Get a List of Interfaces
-    interfaces = get_configured_interfaces()
+    interfaces = get_configured_interfaces(url_base, args.username, password)
 
     print("The router has the following interfaces: \n")
     for interface in interfaces:
@@ -169,18 +201,19 @@ def main():
 
     # Print Starting Interface Details
     print("Starting Interface Configuration")
-    print_interface_details(selected_interface)
+    print_interface_details(url_base, selected_interface, args.username,
+                            password)
 
     # As User for IP Address to set
     ip = get_ip_info()
 
     # Configure interface
-    configure_ip_address(selected_interface, ip)
+    configure_ip_address(url_base, selected_interface, ip, args.username, password)
 
     # Print Ending Interface Details
     print("Ending Interface Configuration")
-    print_interface_details(selected_interface)
-
+    print_interface_details(url_base, selected_interface, args.username,
+                            password)
 
 if __name__ == '__main__':
     sys.exit(main())
