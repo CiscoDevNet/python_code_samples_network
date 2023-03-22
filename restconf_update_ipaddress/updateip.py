@@ -51,13 +51,10 @@ def get_configured_interfaces(url_base, username, password):
                                 headers=headers,
                                 verify=False
                                 )
+        response.raise_for_status()
     except Exception as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-
-    if response.status_code >= 300:
-       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
-       sys.exit(1)
 
     # return the json as text
     return response.json()["ietf-interfaces:interfaces"]["interface"]
@@ -94,13 +91,10 @@ def configure_ip_address(url_base, interface, ip, username, password):
                                 verify=False,
                                 json=data
                                 )
+        response.raise_for_status()
     except Exception as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-
-    if response.status_code >= 300:
-       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
-       sys.exit(1)
 
     print(response.text)
 
@@ -116,14 +110,10 @@ def print_interface_details(url_base, interface, username, password):
                                 headers=headers,
                                 verify=False
                                 )
+        response.raise_for_status()
     except Exception as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-
-    if response.status_code >= 300:
-       print('request error:', str(response.status_code), response.reason, file=sys.stderr)
-       sys.exit(1)
-
 
     intf = response.json()["ietf-interfaces:interface"]
     # return the json as text
