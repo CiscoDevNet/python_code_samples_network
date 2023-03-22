@@ -33,10 +33,6 @@ import urllib3
 # Disable SSL Warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Identifies the interface on the device used for management access
-# Used to ensure the script isn't used to update the IP leveraged to manage device
-MANAGEMENT_INTERFACE = "GigabitEthernet1"
-
 # Identify yang+json as the data formats
 headers = {'Content-Type': 'application/yang-data+json',
            'Accept': 'application/yang-data+json'}
@@ -130,15 +126,15 @@ def print_interface_details(url_base, interface, username, password):
 
 # Ask the user to select an interface to configure.  Ensures input is valid and
 # NOT the management interface
-def interface_selection(interfaces):
+def interface_selection(interfaces, mgmt_if):
     # Ask User which interface to configure
     sel = input("Which Interface do you want to configure? ")
 
     # Validate interface input
     # Must be an interface on the device AND NOT be the Management Interface
-    while sel == MANAGEMENT_INTERFACE or not sel in [intf["name"] for intf in interfaces]:
+    while sel == mgmt_if or not sel in [intf["name"] for intf in interfaces]:
         print("INVALID:  Select an available interface.")
-        print("          " + MANAGEMENT_INTERFACE + " is used for management.")
+        print("          " + mgmt_if + " is used for management.")
         print("          Choose another Interface")
         sel = input("Which Interface do you want to configure? ")
 
@@ -166,6 +162,11 @@ def main():
                         default='ios-xe-mgmt.cisco.com')
     parser.add_argument('--username', '-u', type=str,
                         help='sandbox username', default='developer')
+    # Identifies the interface on the device used for management access
+    # Used to ensure the script isn't used to update the IP leveraged to manage
+    # device
+    parser.add_argument('--management_if', '-m', type=str,
+                        help='management interface', default='GigabitEthernet1')
     parser.add_argument('--port', '-P', type=int,
                         help='sandbox web port', default=443)
     args = parser.parse_args()
@@ -186,7 +187,7 @@ def main():
     print("")
 
     # Ask User which interface to configure
-    selected_interface = interface_selection(interfaces)
+    selected_interface = interface_selection(interfaces, args.management_if)
     print(selected_interface)
 
     # Print Starting Interface Details
