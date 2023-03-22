@@ -25,6 +25,7 @@
 import json
 import requests
 import sys
+import os
 from argparse import ArgumentParser
 from collections import OrderedDict
 from getpass import getpass
@@ -171,7 +172,9 @@ def main():
                         help='sandbox web port', default=443)
     args = parser.parse_args()
 
-    password = getpass()
+    password = os.getenv('DEVNET_RESTCONF_PASSWORD')
+    if password is None:
+        password = getpass()
 
     # Create the base URL for RESTCONF calls
 
