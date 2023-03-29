@@ -89,11 +89,11 @@ target.truncate()
 
 for i in intfs:
     title = "Interfaces: " + i 
-    print title 
+    print(title) 
     target.write(title)
-    print intfs[i]
+    print(intfs[i])
     target.write(intfs[i])
-    print "\n\n"
+    print("\n\n")
     target.write("\n\n")
 
 target.close()
