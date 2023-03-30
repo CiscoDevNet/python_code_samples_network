@@ -40,7 +40,18 @@ ios_xe1 = {
              "password": "D_Vay!_10&",
              "device_type": "cisco_ios"
           }
-
+# DevNet Always-On NETCONF/YANG & RESTCONF Sandbox Device
+# https://devnetsandbox.cisco.com/RM/Diagram/Index/7b4d4209-a17c-4bc3-9b38-f15184e53a94?diagramType=Topology
+# try this one if you can't access the previous one
+ios_xe_latest = {
+             "address": "sandbox-iosxe-latest-1.cisco.com",
+             "netconf_port": 830,
+             "restconf_port": 443,
+             "ssh_port": 22,
+             "username": "admin",
+             "password": "C1sco12345",
+             "device_type": "cisco_ios"
+          }
 # DevNet Always-On Sandbox NX-OS
 #
 nxos1 = {
