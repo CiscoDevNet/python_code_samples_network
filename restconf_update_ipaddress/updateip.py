@@ -8,7 +8,7 @@
       - updates the IP address on the interface
       - displays the final IP information on the interface
 
-    This script has been tested with Python 3.5, however may work with other versions.
+    This script has been tested with Python 3.7, however may work with other versions.
 
     This script targets the RESTCONF DevNet Sandbox that leverages a CSR1000v as
     a target.  To execute this script against a different device, update the
@@ -120,7 +120,7 @@ def print_interface_details(url_base, interface, username, password, cidr):
         netmask = intf[0]["ietf-ip:ipv4"]["address"][0]["netmask"]
         if cidr:
             nma = ipaddress.ip_address(netmask)
-            netmask = str("{0:b}".format(nma._ip).count('1'))
+            netmask = str("{0:b}".format(int(nma)).count('1'))
         print("IP Address: ", intf[0]["ietf-ip:ipv4"]["address"][0]["ip"], "/",
               netmask)
     except KeyError:
@@ -156,14 +156,17 @@ def get_ip_info(cidr):
     ip = {}
     try:
         if cidr:
-            (ipa_t, ipl) = input("What IP address/prefixlen do you want to set? ").split('/')
-            ipa = ipaddress.ip_address(ipa_t)
-            ip["address"] = ipa.compressed
-            ip["mask"] = ipa._make_netmask(int(ipl))[0].compressed
+            ipa_t = input("What IP address/prefixlen do you want to set? ")
+            ipi = ipaddress.ip_interface(ipa_t)
+            ip["address"] = ipi.ip.compressed
+            ip["mask"] = ipi.netmask.compressed
         else:
             ipa_t = input("What IP address do you want to set? ")
-            ip["address"] = ipaddress.ip_address(ipa_t).compressed
-            ip["mask"] = input("What Subnet Mask do you want to set? ")
+            ipi = ipaddress.ip_interface(ipa_t)
+            ip["address"] = ipi.ip.compressed
+            ipm_t = input("What Subnet Mask do you want to set? ")
+            ipm = ipaddress.ip_address(ipm_t)
+            ip["mask"] = ipm.compressed
     except Exception as e:
         print(e, file=sys.stderr)
         sys.exit(1)
