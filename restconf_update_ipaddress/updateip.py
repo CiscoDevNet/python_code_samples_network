@@ -8,7 +8,7 @@
       - updates the IP address on the interface
       - displays the final IP information on the interface
 
-    This script has been tested with Python 3.5, however may work with other versions.
+    This script has been tested with Python 3.7, however may work with other versions.
 
     This script targets the RESTCONF DevNet Sandbox that leverages a CSR1000v as
     a target.  To execute this script against a different device, update the
@@ -26,6 +26,7 @@ import json
 import requests
 import sys
 import os
+import ipaddress
 from argparse import ArgumentParser
 from collections import OrderedDict
 from getpass import getpass
@@ -97,7 +98,7 @@ def configure_ip_address(url_base, interface, ip, username, password):
 
 
 # Retrieve and print the current configuration of an interface
-def print_interface_details(url_base, interface, username, password):
+def print_interface_details(url_base, interface, username, password, cidr):
     url = url_base + "/interface={i}".format(i=interface)
 
     # this statement performs a GET on the specified url
@@ -116,10 +117,17 @@ def print_interface_details(url_base, interface, username, password):
     # return the json as text
     print("Name: ", intf[0]["name"])
     try:
+        netmask = intf[0]["ietf-ip:ipv4"]["address"][0]["netmask"]
+        if cidr:
+            nma = ipaddress.ip_address(netmask)
+            netmask = str("{0:b}".format(int(nma)).count('1'))
         print("IP Address: ", intf[0]["ietf-ip:ipv4"]["address"][0]["ip"], "/",
-                              intf[0]["ietf-ip:ipv4"]["address"][0]["netmask"])
+              netmask)
     except KeyError:
         print("IP Address: UNCONFIGURED")
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
     print()
 
     return(intf)
@@ -142,12 +150,26 @@ def interface_selection(interfaces, mgmt_if):
     return(sel)
 
 
-# Asks the user to provide an IP address and Mask.  Data is NOT validated.
-def get_ip_info():
+# Asks the user to provide an IP address and Mask.
+def get_ip_info(cidr):
     # Ask User for IP and Mask
     ip = {}
-    ip["address"] = input("What IP address do you want to set? ")
-    ip["mask"] = input("What Subnet Mask do you want to set? ")
+    try:
+        if cidr:
+            ipa_t = input("What IP address/prefixlen do you want to set? ")
+            ipi = ipaddress.ip_interface(ipa_t)
+            ip["address"] = ipi.ip.compressed
+            ip["mask"] = ipi.netmask.compressed
+        else:
+            ipa_t = input("What IP address do you want to set? ")
+            ipi = ipaddress.ip_interface(ipa_t)
+            ip["address"] = ipi.ip.compressed
+            ipm_t = input("What Subnet Mask do you want to set? ")
+            ipm = ipaddress.ip_address(ipm_t)
+            ip["mask"] = ipm.compressed
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
     return(ip)
 
 
@@ -170,6 +192,8 @@ def main():
                         help='management interface', default='GigabitEthernet1')
     parser.add_argument('--port', '-P', type=int,
                         help='sandbox web port', default=443)
+    parser.add_argument('--cidr', help='use CIDR format for interface IP',
+                        action='store_true')
     args = parser.parse_args()
 
     password = os.getenv('DEVNET_RESTCONF_PASSWORD')
@@ -196,10 +220,10 @@ def main():
     # Print Starting Interface Details
     print("Starting Interface Configuration")
     print_interface_details(url_base, selected_interface, args.username,
-                            password)
+                            password, args.cidr)
 
     # As User for IP Address to set
-    ip = get_ip_info()
+    ip = get_ip_info(args.cidr)
 
     # Configure interface
     configure_ip_address(url_base, selected_interface, ip, args.username, password)
@@ -207,7 +231,7 @@ def main():
     # Print Ending Interface Details
     print("Ending Interface Configuration")
     print_interface_details(url_base, selected_interface, args.username,
-                            password)
+                            password, args.cidr)
 
 if __name__ == '__main__':
     sys.exit(main())

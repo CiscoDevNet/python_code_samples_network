@@ -10,7 +10,7 @@ This Python script leverages RESTCONF to:
   - updates the IP address on the interface 
   - displays the final IP information on the interface 
   
-This script has been tested with Python 3.5, however may work with other versions.  
+This script has been tested with Python 3.7, however may work with other versions.  
     
 ## DevNet Sandbox 
 
@@ -38,7 +38,7 @@ Python
 * Create and activate a virtualenv 
 
     ```bash 
-    virtualenv venv --python=python3.5
+    virtualenv venv --python=python3.7
     source venv/bin/activate 
     ```
     
