@@ -24,14 +24,23 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 #
-# This script retrieves entire configuration from a network element via NETCONF 
-# prints it out in a "pretty" XML tree.
+# This script retrieves entire configuration from a network element via RESTCONF 
+# and prints it out in a "pretty" JSON tree.
 
 from argparse import ArgumentParser
 import requests
+import urllib3
+import json
+import sys
+import os
+from getpass import getpass
+from pprint import pprint
 
 if __name__ == '__main__':
 
+    # Disable SSL Warnings
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    
     parser = ArgumentParser(description='Select options.')
 
     # Input parameters
@@ -39,24 +48,30 @@ if __name__ == '__main__':
                         help="The device IP or DN")
     parser.add_argument('-user', '--username', type=str, default='cisco',
                         help="User credentials for the request")
-    parser.add_argument('-passwd', '--password', type=str, default='cisco',
-                        help="It's the password")
     parser.add_argument('-port', '--port', type=int, default=443,
                         help="Specify this if you want a non-default port")
 
     args = parser.parse_args()
 
     username = args.username
-    password = args.password
+    password = os.getenv('DEVNET_RESTCONF_PASSWORD')
+    if password is None:
+        password = getpass()
     host = args.host
     port = str(args.port)
 
-    url = "https://" + host + ":" + port + "/restconf/api/running/"
+    url = "https://" + host + ":" + port + "/restconf/data/Cisco-IOS-XE-native:native"
 
     headers = {
-       "Content-Type": "application/vnd.yang.datastore+json",
-       "Accept": "application/vnd.yang.datastore+json",
+       "Content-Type": "application/yang-data+json",
+       "Accept": "application/yang-data+json",
        }
-    response = requests.request("GET", url, headers=headers, auth=(username,password), verify=False)
+    
+    try:
+        response = requests.request("GET", url, headers=headers, auth=(username,password), verify=False)
+        response.raise_for_status()
+    except Exception as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
 
-    print(response.text)
+    pprint(response.json())
